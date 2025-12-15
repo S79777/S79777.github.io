@@ -8,17 +8,18 @@
     <style>
         /* CSS Reset and Variables */
         :root {
-            --color-background: #F8F9FA; /* Soft light grey/off-white */
-            --color-card-bg: #FFFFFF; /* Pure white */
-            --color-border: #E9ECEF; /* Light grey border */
-            --color-text: #212529; /* Dark grey/near black */
-            --color-text-secondary: #6C757D; /* Medium grey for subtle text */
-            --color-accent: #004F98; /* Deep Ocean Blue (UMT Theme) */
+            --color-background: #F8F9FA;
+            --color-card-bg: #FFFFFF;
+            --color-border: #E9ECEF;
+            --color-text: #212529;
+            --color-text-secondary: #6C757D;
+            --color-accent: #004F98;
             --border-radius: 12px;
             --font-family: 'Inter', sans-serif;
             --padding: 20px;
         }
 
+        /* ... (rest of the basic styling) ... */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -38,11 +39,11 @@
 
         .bento-grid {
             display: grid;
-            gap: 16px; /* Spacing between cards */
+            gap: 16px;
             max-width: 1200px;
             margin: 0 auto;
-            grid-template-columns: repeat(6, 1fr); /* 6 columns for fine control */
-            grid-auto-rows: minmax(120px, auto); /* Minimum height for rows */
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: minmax(120px, auto);
         }
 
         .bento-card {
@@ -50,99 +51,104 @@
             border: 1px solid var(--color-border);
             border-radius: var(--border-radius);
             padding: var(--padding);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03); /* Subtle lift */
-            transition: transform 0.2s, box-shadow 0.2s;
-            overflow: hidden; /* Ensures content stays inside rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            /* Ensure text is readable over background image */
+            position: relative; 
+            z-index: 1; 
         }
 
         .bento-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.05);
+            transform: scale(1.01) translateY(-1px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
         }
 
         /* Card-Specific Styling (Desktop Grid) */
 
-        /* Card 1: Profile (Large) - Spans 3 columns, 2 rows */
-        .card-profile {
-            grid-column: span 3;
-            grid-row: span 2;
+        .card-profile { grid-column: span 3; grid-row: span 2; }
+        .card-location { grid-column: span 1; grid-row: span 1; }
+        .card-tech-stack { grid-column: span 2; grid-row: span 1; }
+        .card-case-study { grid-column: span 2; grid-row: span 1; }
+        .card-hobby { grid-column: span 1; grid-row: span 1; }
+        .card-reflection { grid-column: span 2; grid-row: span 1; }
+        .card-playlist { grid-column: 1 / -1; grid-row: span 1; } 
+
+
+        /* --- PROFILE CARD (Card 1) BACKGROUND IMAGE UPDATE --- */
+        .card-profile { 
+            /* 1. Set the image */
+            background-image: url('bg.jpg'); 
+            
+            /* 2. Positioning and scaling */
+            background-size: cover; /* Ensures image covers the whole card */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents tiling */
+            
+            /* 3. Change text color for readability over a dark image */
+            color: white; 
+            border: none; /* Remove border for a cleaner look */
         }
 
-        /* Card 2: Location (Small) - Spans 1 column, 1 row */
-        .card-location {
-            grid-column: span 1;
-            grid-row: span 1;
+        /* Style elements *inside* the profile card to be white */
+        .card-profile h1, 
+        .card-profile h3, 
+        .card-profile .accent-text,
+        .card-profile .social-links a {
+            color: white !important; 
+        }
+        
+        /* Make secondary text legible (e.g., light grey over dark image) */
+        .card-profile .text-secondary {
+            color: rgba(255, 255, 255, 0.8) !important; 
         }
 
-        /* Card 3: Tech Stack (Medium) - Spans 2 columns, 1 row */
-        .card-tech-stack {
-            grid-column: span 2;
-            grid-row: span 1;
+        /* Adjust social link borders for visibility on a dark background */
+        .card-profile .social-links a {
+            border-color: rgba(255, 255, 255, 0.4); 
         }
-
-        /* Card 4: Case Study (Medium) - Spans 2 columns, 1 row */
-        .card-case-study {
-            grid-column: span 2;
-            grid-row: span 1;
+        
+        /* Optional: Add an overlay for better text contrast */
+        .card-profile::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+            border-radius: var(--border-radius);
+            z-index: 2; /* Place overlay above background image */
         }
-
-        /* Card 5: Hobby (Small) - Spans 1 column, 1 row */
-        .card-hobby {
-            grid-column: span 1;
-            grid-row: span 1;
+        
+        /* Push content above the overlay */
+        .card-profile > div {
+            position: relative;
+            z-index: 3; 
         }
-
-        /* Card 6: Playlist (Wide) - Spans all 6 columns, 1 row (at the bottom) */
-        .card-playlist {
-            grid-column: 1 / -1; /* Start at first column, end at last */
-            grid-row: span 1;
-        }
+        /* --- END PROFILE CARD UPDATE --- */
 
 
         /* --- Content Styling --- */
+        /* ... (rest of the content styling remains the same) ... */
 
-        h1 {
-            font-size: 2.2em;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        h2 {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--color-accent);
-        }
-        
-        h3 {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--color-text);
-        }
-
-        .text-secondary {
-            color: var(--color-text-secondary);
-            font-size: 0.95em;
-        }
-
-        .social-links {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-        }
-
+        h1 { font-size: 2.2em; margin-bottom: 5px; font-weight: 700; }
+        h2 { font-size: 1.4em; font-weight: 600; margin-bottom: 10px; color: var(--color-accent); }
+        h3 { font-size: 1.1em; font-weight: 600; margin-bottom: 5px; color: var(--color-text); }
+        .text-secondary { color: var(--color-text-secondary); font-size: 0.95em; }
+        .social-links { margin-top: 20px; display: flex; gap: 15px; }
         .social-links a {
-            color: var(--color-text);
             text-decoration: none;
             font-weight: 600;
             padding: 5px 10px;
             border: 1px solid var(--color-border);
             border-radius: 6px;
             transition: background-color 0.2s, border-color 0.2s;
+            /* Default non-profile card link color */
+            color: var(--color-text); 
         }
 
         .social-links a:hover {
@@ -151,15 +157,9 @@
             border-color: var(--color-accent);
         }
 
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
         .tag {
-            background-color: #E6F0FF; /* Light blue background for tags */
+            background-color: #E6F0FF; 
             color: var(--color-accent);
             padding: 6px 12px;
             border-radius: 4px;
@@ -167,44 +167,30 @@
             font-weight: 600;
         }
         
-        .accent-text {
-            color: var(--color-accent);
-            font-weight: 700;
-            font-size: 1.1em;
-        }
+        .accent-text { color: var(--color-accent); font-weight: 700; font-size: 1.1em; }
 
         /* --- Mobile Responsiveness (Vertical Stack) --- */
         @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
+            body { padding: 15px; }
             .bento-grid {
-                /* Reset to a single column stack for mobile */
                 grid-template-columns: 1fr;
                 gap: 12px;
             }
 
             .bento-card {
-                /* All cards span the full width */
                 grid-column: span 1 / auto;
                 grid-row: auto;
                 padding: 15px;
             }
 
-            /* Specific mobile adjustments */
-            .card-profile h1 {
-                font-size: 1.8em;
-            }
-            
-            .card-profile .text-secondary {
-                font-size: 0.9em;
-            }
-
-            .card-playlist {
-                /* Keep playlist at the bottom, full width */
-                order: 6; /* Ensures it's last in the flex/grid flow */
-            }
+            /* Ensure cards appear in a logical order on mobile */
+            .card-profile { order: 1; }
+            .card-location { order: 2; }
+            .card-tech-stack { order: 3; }
+            .card-case-study { order: 4; }
+            .card-reflection { order: 5; }
+            .card-hobby { order: 6; }
+            .card-playlist { order: 7; } 
         }
     </style>
 </head>
@@ -226,7 +212,7 @@
             </div>
             <div class="social-links">
                 <a href="#" target="_blank">LinkedIn</a>
-                <a href="#" target="_blank">GitHub</a>
+                <a href="https://github.com/S79777" target="_blank">GitHub</a>
                 <a href="#" target="_blank">UMT Portal</a>
             </div>
         </div>
@@ -271,10 +257,20 @@
             </div>
         </div>
 
+        <div class="bento-card card-reflection">
+            <div>
+                <span class="text-secondary">Vision & Purpose</span>
+                <h3>Why Food Tech Matters in Malaysia</h3>
+                <p style="margin-top: 10px;">
+                    Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.
+                </p>
+            </div>
+        </div>
+
         <div class="bento-card card-playlist">
             <div>
                 <span class="text-secondary">Study Soundtrack</span>
-                <h3>Lo-fi Focus (Placeholder Music Player)</h3>
+                <h3>Lo-fi Focus (<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4lfxFP27cUvH?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>    )</h3>
                 <p style="margin-top: 10px;">
                     [Placeholder for a music player embed to aid focus.]
                 </p>
@@ -284,13 +280,9 @@
     </div>
 
     <script>
-        // Optional JavaScript to update the time dynamically based on the current user's system time
         function updateTime() {
             const timeElement = document.getElementById('current-time');
             if (timeElement) {
-                // Formatting time for Kuala Terengganu (Malaysia)
-                // Note: The time display uses the client's local time for simplicity, 
-                // but we can assume the client is currently in the desired location.
                 const now = new Date();
                 const options = { 
                     hour: '2-digit', 
@@ -301,7 +293,6 @@
                 timeElement.textContent = now.toLocaleTimeString('en-US', options);
             }
         }
-        // Update time immediately and then every minute
         updateTime();
         setInterval(updateTime, 60000); 
     </script>
