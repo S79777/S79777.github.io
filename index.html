@@ -19,7 +19,6 @@
             --padding: 20px;
         }
 
-        /* ... (rest of the basic styling) ... */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -57,7 +56,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Ensure text is readable over background image */
             position: relative; 
             z-index: 1; 
         }
@@ -78,22 +76,16 @@
         .card-playlist { grid-column: 1 / -1; grid-row: span 1; } 
 
 
-        /* --- PROFILE CARD (Card 1) BACKGROUND IMAGE UPDATE --- */
+        /* --- PROFILE CARD BACKGROUND IMAGE --- */
         .card-profile { 
-            /* 1. Set the image */
             background-image: url('bg.jpg'); 
-            
-            /* 2. Positioning and scaling */
-            background-size: cover; /* Ensures image covers the whole card */
-            background-position: center; /* Centers the image */
-            background-repeat: no-repeat; /* Prevents tiling */
-            
-            /* 3. Change text color for readability over a dark image */
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
             color: white; 
-            border: none; /* Remove border for a cleaner look */
+            border: none; 
         }
 
-        /* Style elements *inside* the profile card to be white */
         .card-profile h1, 
         .card-profile h3, 
         .card-profile .accent-text,
@@ -101,17 +93,14 @@
             color: white !important; 
         }
         
-        /* Make secondary text legible (e.g., light grey over dark image) */
         .card-profile .text-secondary {
             color: rgba(255, 255, 255, 0.8) !important; 
         }
 
-        /* Adjust social link borders for visibility on a dark background */
         .card-profile .social-links a {
             border-color: rgba(255, 255, 255, 0.4); 
         }
         
-        /* Optional: Add an overlay for better text contrast */
         .card-profile::before {
             content: "";
             position: absolute;
@@ -119,21 +108,40 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+            background: rgba(0, 0, 0, 0.4); 
             border-radius: var(--border-radius);
-            z-index: 2; /* Place overlay above background image */
+            z-index: 2; 
         }
         
-        /* Push content above the overlay */
         .card-profile > div {
             position: relative;
             z-index: 3; 
         }
-        /* --- END PROFILE CARD UPDATE --- */
 
+        /* --- BUTTON STYLING --- */
+        .btn-focus {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: var(--color-accent);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 79, 152, 0.2);
+        }
+
+        .btn-focus:hover {
+            background-color: #003a70;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 79, 152, 0.3);
+        }
 
         /* --- Content Styling --- */
-        /* ... (rest of the content styling remains the same) ... */
 
         h1 { font-size: 2.2em; margin-bottom: 5px; font-weight: 700; }
         h2 { font-size: 1.4em; font-weight: 600; margin-bottom: 10px; color: var(--color-accent); }
@@ -147,7 +155,6 @@
             border: 1px solid var(--color-border);
             border-radius: 6px;
             transition: background-color 0.2s, border-color 0.2s;
-            /* Default non-profile card link color */
             color: var(--color-text); 
         }
 
@@ -169,7 +176,7 @@
         
         .accent-text { color: var(--color-accent); font-weight: 700; font-size: 1.1em; }
 
-        /* --- Mobile Responsiveness (Vertical Stack) --- */
+        /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             body { padding: 15px; }
             .bento-grid {
@@ -183,7 +190,6 @@
                 padding: 15px;
             }
 
-            /* Ensure cards appear in a logical order on mobile */
             .card-profile { order: 1; }
             .card-location { order: 2; }
             .card-tech-stack { order: 3; }
@@ -203,11 +209,11 @@
                 <span class="text-secondary">Student Profile</span>
                 <h1>Siti Nazirah binti Rosdi</h1>
                 <p class="text-secondary">
-                    **Program:** Food Science and Technology <br>
-                    **Year:** Year 1
+                    <strong>Program:</strong> Food Science and Technology <br>
+                    <strong>Year:</strong> Year 1
                 </p>
                 <p style="margin-top: 15px;">
-                    **Tagline:** 'Innovating food safety.'
+                    <strong>Tagline:</strong> 'Innovating food safety.'
                 </p>
             </div>
             <div class="social-links">
@@ -244,8 +250,9 @@
                 <span class="text-secondary">Recent Project</span>
                 <h3>Starch Gelatinization in Local Kuih</h3>
                 <p style="margin-top: 10px;">
-                    Analyzing texture profiles of Kuih Lapis. Research focuses on optimizing preparation methods for improved shelf-stability and sensory appeal.
+                    Analyzing texture profiles of Kuih Lapis. Research focuses on optimizing preparation methods for improved shelf-stability.
                 </p>
+                <a href="https://s79777.github.io/focus-timer-app/app.html" class="btn-focus">Try My Focus Timer App</a>
             </div>
         </div>
 
@@ -270,10 +277,10 @@
         <div class="bento-card card-playlist">
             <div>
                 <span class="text-secondary">Study Soundtrack</span>
-                <h3>Lo-fi Focus (<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4lfxFP27cUvH?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>    )</h3>
-                <p style="margin-top: 10px;">
-                    [Placeholder for a music player embed to aid focus.]
-                </p>
+                <h3> <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7kFyd5oyJdVX2pIi6P4iHE?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>   </h3>
+                <div style="margin-top: 10px;">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DWWQRvui9Df7X?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
             </div>
         </div>
         
